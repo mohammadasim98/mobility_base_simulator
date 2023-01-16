@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="x" default="0" />
+  <arg name="y" default="0" />
+  <arg name="z" default="0" />
+  <arg name="R" default="0" />
+  <arg name="P" default="0" />
+  <arg name="Y" default="0" />
+  <arg name="baxter" default="false" />
+  <arg name="fast" default="true" />
+  <arg name="xacro_file" default="'$(find mobility_base_description)/urdf/mobility_base.urdf.xacro' gazebo:=true baxter:=$(arg baxter) fast:=$(arg fast)" />
+
+  <arg name="left_electric_gripper" default="true"/>
+  <arg name="right_electric_gripper" default="true"/>
+  <group if="$(arg baxter)" >
+    <param name="/robot_description" command="$(find xacro)/xacro --inorder '$(find mobility_base_description)/urdf/baxter.urdf.xacro' gazebo:=true pedestal:=false" />
+    <param name="rethink/software_version" value="1.2.0" />
+    <include file="$(find baxter_sim_hardware)/launch/baxter_sdk_control.launch">
+        <arg name="right_electric_gripper" value="$(arg right_electric_gripper)"/>
+        <arg name="left_electric_gripper" value="$(arg left_electric_gripper)"/>
+    </include>
+  </group>
+
+  <group ns="/mobility_base">
+
+    <!-- Gazebo model spawner -->
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_model" args="-x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y) -unpause -urdf -param /mobility_base/robot_description -model mobility_base"/>
+
+    <!-- Transforms -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg xacro_file)" />
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+      <param name="publish_frequency" type="double" value="30.0" />
+    </node>
+
+  </group>
+
+  <!-- Laser filter to remove legs from scan -->
+  <group if="$(optenv MB_LASER_BIRDCAGE_R2000 1)">
+    <include file="$(find mobility_base_bringup)/launch/birdcage_laser_pipeline.launch" >
+      <arg name="ns" value="/laser_birdcage_r2000"/>
+    </include>
+  </group>
+
+  <!-- PointCloud filter to remove legs from scan -->
+  <group if="$(optenv MB_LASER_BIRDCAGE_VLP16 0)" ns="laser_birdcage_vlp16">
+    <node pkg="mobility_base_pointcloud_filter" type="pointcloud_filter_node" name="filter">
+      <param name="width" value="0.439822972"/>
+    </node>
+  </group>
+
+</launch>

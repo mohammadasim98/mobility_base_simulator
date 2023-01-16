@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mobility_base_gazebo</name>
+  <version>1.0.0</version>
+  <description>
+    Example launch files for working with the Mobility Base Simulator
+  </description>
+
+  <license>BSD</license>
+  <author>Dataspeed Inc.</author>
+  <maintainer email="khallenbeck@dataspeedinc.com">Dataspeed Inc.</maintainer>
+  <url type="website">http://dataspeedinc.com</url>
+  <url type="repository">https://bitbucket.org/dataspeedinc/mobility_base_simulator</url>
+  <url type="bugtracker">https://bitbucket.org/dataspeedinc/mobility_base_simulator/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Launch Depends -->
+  <exec_depend>roslaunch</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>mobility_base_bringup</exec_depend>
+  <exec_depend>mobility_base_gazebo_plugins</exec_depend>
+  <exec_depend>velodyne_gazebo_plugins</exec_depend>
+
+  <!-- Test Depends -->
+  <test_depend>roslaunch</test_depend>
+
+</package>

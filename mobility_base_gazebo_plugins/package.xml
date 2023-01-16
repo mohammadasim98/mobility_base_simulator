@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mobility_base_gazebo_plugins</name>
+  <version>1.0.0</version>
+  <description>
+    Gazebo plugin to provide simulated dynamics of the
+    Mobility Base Robot from Dataspeed Inc.
+  </description>
+
+  <license>BSD</license>
+  <author>Dataspeed Inc.</author>
+  <maintainer email="khallenbeck@dataspeedinc.com">Dataspeed Inc.</maintainer>
+  <url type="website">http://dataspeedinc.com</url>
+  <url type="repository">https://bitbucket.org/dataspeedinc/mobility_base_simulator</url>
+  <url type="bugtracker">https://bitbucket.org/dataspeedinc/mobility_base_simulator/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>tf</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_plugins</depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>mobility_base_core_msgs</depend>
+
+</package>

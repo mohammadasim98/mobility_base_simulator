@@ -1,0 +1,4 @@
+- git:
+    local-name: mobility_base_simulator
+    uri: https://github.com/mohammadasim98/mobility_base_simulator.git
+    version: master
